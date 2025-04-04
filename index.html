@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>North Carolina Mapping Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .map-container img {
+            width: 100%;
+            max-width: 1000px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .map-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>North Carolina Geospatial Mapping Demo</h1>
+    <p><strong>Instructions:</strong> Click on the image below to view it in full size.</p>
+    <div class="map-container">
+        <a href="assets/location-map.png" class="image-link">
+            <img src="assets/location-map.png" alt="Map of North Carolina">
+        </a>
+    </div>
+    
+    <h1>North Carolina Semantic Mapping Demo</h1>
+    <p><strong>Instructions:</strong> Click on the image below to view it in full size.</p>
+    <div class="map-container">
+        <a href="assets/semantic-map.png" class="image-link">
+            <img src="assets/semantic-map.png" alt="Semantic Map of North Carolina">
+        </a>
+    </div>
+    
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <script>
+        // Get the modal elements
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeBtn = document.querySelector(".close-btn");
+        
+        // Get all image links
+        const imageLinks = document.querySelectorAll(".image-link");
+        
+        // Add click event to all image links
+        imageLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                modal.style.display = "flex";
+                modalImg.src = this.href;
+            });
+        });
+        
+        // Close the modal when clicking the x button
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+        
+        // Close the modal when clicking outside the image
+        modal.addEventListener("click", function(e) {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+        
+        // Close the modal when pressing Escape key
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
